@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace SOH.MAIN.Models.Booking
 {
-    public class SR_State
+    public enum SR_State
     {
-        public int idState { get; set; }
-        public int name { get; set; }
+        Resevada,
+        Reservada_y_Modificada,
+        Cancelada,
+        Tomada,
+        No_tomada,
+        En_pausa,
+        Plazo_incompleto,
+        Extendida
     }
 }

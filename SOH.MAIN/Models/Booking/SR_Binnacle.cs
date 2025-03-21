@@ -15,10 +15,6 @@ namespace SOH.MAIN.Models.Booking
         public DateTime modificationDate { get; set; }
 
         //Claves foraneas como propiedad
-        [ForeignKey("SR_State")]
-        public SR_State? State { get; set; }
-        public int idState { get; set; }
-
         [ForeignKey("SR_Booking")]
         public SR_Booking? Booking { get; set; }
         public int idBooking { get; set; }

@@ -11,6 +11,7 @@ namespace SOH.MAIN.Models.Payments
     public class SR_Bill
     {
         public int idBill { get; set; }
+        public float pay { get; set; }
         public float Iva { get; set; }
         public DateTime emissionDate { get; set; }
         public int idRecharge { get; set; }
@@ -21,7 +22,7 @@ namespace SOH.MAIN.Models.Payments
         public int idBooking { get; set; }
 
         [ForeignKey("SR_TypePay")]
-        public SR_Pay? Pay { get; set; }
+        public SR_TypePay? TypePay { get; set; }
         public int idTypePay { get; set; }
     }
 }
