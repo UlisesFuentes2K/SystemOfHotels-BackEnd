@@ -2,7 +2,7 @@
 {
     public class SR_TypePerson
     {
-        public int idTypeEmployee { get; set; }
-        public int name { get; set; }
+        public int idTypePerson { get; set; }
+        public string name { get; set; }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SOH.MAIN.Models.Employee;
+using SOH.MAIN.Models.Users;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SOH.MAIN.Models.Customer
 {
-    public class SR_Person : IdentityUser
+    public class SR_Person
     {
+        public int idPerson { get; set; }
         public string name { get; set; }
         public string lastName { get; set; }
         public string direction { get; set; }
@@ -17,16 +19,14 @@ namespace SOH.MAIN.Models.Customer
         //Enlace de uno a uno de Persona a Empleado
         public SR_Employee Employee { get; set; }
 
-        // Claves foraneas como propiedades
-        [ForeignKey("SR_Contacts")]
-        public SR_Contacts? Contacts { get; set; }
-        public int idContacts { get; set; }
+        //Enlace de uno a uno de Persona a Usuario
+        public SR_AspNetUser Users { get; set; }
 
-        [ForeignKey("SR_TypePerson")]
+        [ForeignKey("idTypePerson")]
         public SR_TypePerson? typePerson { get; set; }
         public int idTypePerson { get; set; }
 
-        [ForeignKey("SR_City")]
+        [ForeignKey("idCity")]
         public SR_City? City { get; set; }
         public int idCity { get; set; }
     }

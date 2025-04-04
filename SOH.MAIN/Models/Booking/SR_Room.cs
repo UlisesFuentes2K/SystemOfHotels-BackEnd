@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SOH.MAIN.Models.Booking
 {
@@ -14,7 +9,7 @@ namespace SOH.MAIN.Models.Booking
         public bool isActive { get; set; }
 
         //Claves foraneas como propiedad
-        [ForeignKey("SR_CategoryRoom")]
+        [ForeignKey("idCategoryRoom")]
         public SR_CategoryRoom CategoryRoom { get; set; }
         public int idCategoryRoom { get; set; }
     }

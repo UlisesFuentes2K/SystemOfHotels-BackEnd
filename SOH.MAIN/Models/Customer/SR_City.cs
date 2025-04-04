@@ -7,7 +7,7 @@ namespace SOH.MAIN.Models.Customer
         public int idCity { get; set; }
         public string name { get; set; }
 
-        [ForeignKey("SR_Country")]
+        [ForeignKey("idCountry")]
         public SR_Country? Country { get; set; }
         public int idCountry { get; set; }
     }

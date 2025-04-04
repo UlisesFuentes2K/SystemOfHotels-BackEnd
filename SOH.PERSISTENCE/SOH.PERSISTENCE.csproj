@@ -27,8 +27,4 @@
     <ProjectReference Include="..\SOH.CORE\SOH.CORE.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\Configuration\" />
-  </ItemGroup>
-
 </Project>

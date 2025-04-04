@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SOH.MAIN.Models.Booking
 {
@@ -15,9 +10,9 @@ namespace SOH.MAIN.Models.Booking
         public DateTime modificationDate { get; set; }
 
         //Claves foraneas como propiedad
-        [ForeignKey("SR_Booking")]
-        public SR_Booking? Booking { get; set; }
+        [ForeignKey("idBooking")]
         public int idBooking { get; set; }
+        public SR_Booking? Booking { get; set; }
 
     }
 }

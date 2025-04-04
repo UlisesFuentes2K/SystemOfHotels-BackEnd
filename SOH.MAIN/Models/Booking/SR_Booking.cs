@@ -1,10 +1,5 @@
 ﻿using SOH.MAIN.Models.Customer;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SOH.MAIN.Models.Booking
 {
@@ -17,8 +12,8 @@ namespace SOH.MAIN.Models.Booking
         public int? idPromotion { get; set; }
 
         //Claves foraneas como propiedades
-        [ForeignKey("SR_Person")]
-        public SR_Person SR_Person { get; set; }
+        [ForeignKey("idPerson")]
         public int idPerson { get; set; }
+        public SR_Person SR_Person { get; set; }
     }
 }

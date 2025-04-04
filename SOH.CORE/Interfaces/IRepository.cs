@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SOH.CORE.Interfaces
+﻿namespace SOH.CORE.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-
+        Task<List<T>> GetAllValues();
+        Task<T> GetOneValue(int t);
+        Task<T> AddValue(T t);
+        Task<T> UpdateValue(T t);
+        Task<bool> DeleteValue(T t);
     }
 }

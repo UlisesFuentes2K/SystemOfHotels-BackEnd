@@ -10,8 +10,8 @@ namespace SOH.MAIN.Models.Customer
         public string? telephoneOffice { get; set; }
 
         // Claves Foaraneas como propiedades.
-        [ForeignKey("SR_Person")]
+        [ForeignKey("idPerson")]
         public SR_Person? Person { get; set; }
-        public int idPerson { get; set; }
+        public int idPerson { get; set; } 
     }
 }

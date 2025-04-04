@@ -1,0 +1,23 @@
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+using SOH.MAIN.Models.Customer;
+using SOH.MAIN.Models.Employee;
+using SOH.MAIN.Models.Users;
+
+internal class ConfigPerson : IEntityTypeConfiguration<SR_Person>
+{
+    public void Configure(EntityTypeBuilder<SR_Person> builder)
+    {
+        builder.HasKey(x => x.idPerson);
+
+        builder.HasOne(y => y.Employee)
+            .WithOne(x => x.Person)
+            .HasForeignKey<SR_Employee>(x => x.idPerson)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(y => y.Users)
+            .WithOne(x => x.Person)
+            .HasForeignKey<SR_AspNetUser>(x => x.idPerson)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
+}
