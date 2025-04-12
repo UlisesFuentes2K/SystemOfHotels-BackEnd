@@ -20,7 +20,7 @@ namespace SOH.MAIN.Models.Customer
         public SR_Employee Employee { get; set; }
 
         //Enlace de uno a uno de Persona a Usuario
-        public SR_AspNetUser Users { get; set; }
+        public SR_Users Users { get; set; }
 
         [ForeignKey("idTypePerson")]
         public SR_TypePerson? typePerson { get; set; }

@@ -14,7 +14,7 @@ namespace SOH.PERSISTENCE.Repository
         private readonly AplicationDbContext _dbContext;
         
         // Definir Implementación de la interfaz
-        public IRepository<SR_AspNetUser> User { get; }
+        public IRepository<SR_Users> User { get; }
 
         public IRepository<SR_Employee> UEmployee { get; }
 

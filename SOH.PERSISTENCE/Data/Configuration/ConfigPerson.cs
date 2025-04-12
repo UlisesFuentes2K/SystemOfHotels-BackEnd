@@ -17,7 +17,7 @@ internal class ConfigPerson : IEntityTypeConfiguration<SR_Person>
 
         builder.HasOne(y => y.Users)
             .WithOne(x => x.Person)
-            .HasForeignKey<SR_AspNetUser>(x => x.idPerson)
+            .HasForeignKey<SR_Users>(x => x.idPerson)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

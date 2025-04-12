@@ -46,7 +46,7 @@ namespace SOH.PERSISTENCE.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("SRH_Role", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -71,7 +71,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("SRH_RoleClaim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -96,7 +96,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("SRH_UserClaim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -118,7 +118,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("SRH_UserLogin", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -133,7 +133,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("SRH_UserRole", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -152,7 +152,44 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("SRH_UserToken", (string)null);
+                });
+
+            modelBuilder.Entity("SOH.MAIN.Models.Audit.SR_AuditLog", b =>
+                {
+                    b.Property<int>("idAuditLog")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idAuditLog"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecordId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TableAffected")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("idRole")
+                        .HasColumnType("int");
+
+                    b.Property<int>("idUser")
+                        .HasColumnType("int");
+
+                    b.HasKey("idAuditLog");
+
+                    b.ToTable("SRH_AuditLog");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Binnacle", b =>
@@ -599,7 +636,7 @@ namespace SOH.PERSISTENCE.Migrations
                     b.ToTable("SRH_TypePay");
                 });
 
-            modelBuilder.Entity("SOH.MAIN.Models.Users.SR_AspNetUser", b =>
+            modelBuilder.Entity("SOH.MAIN.Models.Users.SR_Users", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -661,7 +698,7 @@ namespace SOH.PERSISTENCE.Migrations
                     b.HasIndex("idPerson")
                         .IsUnique();
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("SRH_Users", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -675,7 +712,7 @@ namespace SOH.PERSISTENCE.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SOH.MAIN.Models.Users.SR_AspNetUser", null)
+                    b.HasOne("SOH.MAIN.Models.Users.SR_Users", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -684,7 +721,7 @@ namespace SOH.PERSISTENCE.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SOH.MAIN.Models.Users.SR_AspNetUser", null)
+                    b.HasOne("SOH.MAIN.Models.Users.SR_Users", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -699,7 +736,7 @@ namespace SOH.PERSISTENCE.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SOH.MAIN.Models.Users.SR_AspNetUser", null)
+                    b.HasOne("SOH.MAIN.Models.Users.SR_Users", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -708,7 +745,7 @@ namespace SOH.PERSISTENCE.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SOH.MAIN.Models.Users.SR_AspNetUser", null)
+                    b.HasOne("SOH.MAIN.Models.Users.SR_Users", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -863,11 +900,11 @@ namespace SOH.PERSISTENCE.Migrations
                     b.Navigation("TypePay");
                 });
 
-            modelBuilder.Entity("SOH.MAIN.Models.Users.SR_AspNetUser", b =>
+            modelBuilder.Entity("SOH.MAIN.Models.Users.SR_Users", b =>
                 {
                     b.HasOne("SOH.MAIN.Models.Customer.SR_Person", "Person")
                         .WithOne("Users")
-                        .HasForeignKey("SOH.MAIN.Models.Users.SR_AspNetUser", "idPerson")
+                        .HasForeignKey("SOH.MAIN.Models.Users.SR_Users", "idPerson")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

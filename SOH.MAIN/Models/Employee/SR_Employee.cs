@@ -12,7 +12,7 @@ namespace SOH.MAIN.Models.Employee
 
         //Enlace de uno a uno de EMployee a Person
         [ForeignKey("idPerson")]
-        public SR_Person Person { get; set; }
+        public SR_Person? Person { get; set; }
         public int idPerson { get; set; }
 
         // Claves Foraneas como propiedades.

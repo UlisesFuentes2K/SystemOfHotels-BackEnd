@@ -9,7 +9,7 @@ namespace SOH.CORE.Interfaces
     public interface IUnitOfWork
     {
         //Users
-        public IRepository<SR_AspNetUser> User { get; }
+        public IRepository<SR_Users> User { get; }
 
         //Employee
         public IRepository<SR_Employee> UEmployee { get;}

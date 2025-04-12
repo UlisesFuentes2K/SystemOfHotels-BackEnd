@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SOH.MAIN.Models.Users
 {
-    public class SR_AspNetUser : IdentityUser
+    public class SR_Users : IdentityUser
     {
         // Relación 1:1 con Persona
         [ForeignKey("idPerson")]
