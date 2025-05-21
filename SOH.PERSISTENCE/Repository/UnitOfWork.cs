@@ -1,4 +1,6 @@
-﻿using SOH.CORE.Interfaces;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using SOH.CORE.Interfaces;
 using SOH.MAIN.Models.Booking;
 using SOH.MAIN.Models.Customer;
 using SOH.MAIN.Models.Employee;
@@ -14,7 +16,7 @@ namespace SOH.PERSISTENCE.Repository
         private readonly AplicationDbContext _dbContext;
         
         // Definir Implementación de la interfaz
-        public IRepository<SR_Users> User { get; }
+        public IUserRepository IUser { get; }
 
         public IRepository<SR_Employee> UEmployee { get; }
 
@@ -53,9 +55,12 @@ namespace SOH.PERSISTENCE.Repository
         public IRepository<SR_Recharge> URecharge { get; }
 
         // Inyección de dependencias
-        public UnitOfWork(AplicationDbContext dbContext)
+        public UnitOfWork(AplicationDbContext dbContext, UserManager<SR_Users> userManager, IConfiguration configuration)
         {
             _dbContext = dbContext;
+
+            //User 
+            IUser = new UserRepository(userManager, configuration);
 
             //Employee
             UEmployee = new Repository<SR_Employee>(dbContext);
