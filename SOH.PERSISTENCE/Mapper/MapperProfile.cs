@@ -14,6 +14,7 @@ namespace SOH.PERSISTENCE.Mapper
             CreateMap<AddPersonCommon, SR_Person>()
                 .ForMember(x=> x.dateCreation, y=> y.MapFrom(z=> DateTime.Now.ToLocalTime()))
                 .ReverseMap();
+
             CreateMap<UpdatePersonCommon, SR_Person>()
                 .ForMember(x => x.dateModify, y => y.MapFrom(z => DateTime.Now.ToLocalTime()))
                 .ReverseMap();
@@ -22,9 +23,18 @@ namespace SOH.PERSISTENCE.Mapper
             CreateMap<AddUserCommon, SR_Users>()
                 .ForMember(x => x.dateCreation, y => y.MapFrom(z => DateTime.Now.ToLocalTime()))
                 .ReverseMap();
+
             CreateMap<UpdateUserCommon, SR_Users>()
                 .ForMember(x => x.dateModify, y => y.MapFrom(z => DateTime.Now.ToLocalTime()))
                 .ForMember(x => x.SecurityStamp, y => y.MapFrom(z => Guid.NewGuid().ToString()))
+                .ReverseMap();
+
+            CreateMap<UpdatePasswordCommon, SR_Users>()
+                .ForMember(x => x.dateModify, y => y.MapFrom(z => DateTime.Now.ToLocalTime()))
+                .ReverseMap();
+
+            CreateMap<IsActiveUserCommon, SR_Users>()
+                .ForMember(x => x.dateModify, y => y.MapFrom(z => DateTime.Now.ToLocalTime()))
                 .ReverseMap();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SOH.CORE.Features.User;
 using SOH.MAIN.Models.Users;
@@ -15,6 +16,7 @@ namespace SOH.API.Controllers
             _mediator = mediator;
         }
 
+        //[Authorize]
         // Obtener datos de un usuario por ID
         [HttpGet("{id}")]
         public async Task<SR_Users> Get([FromRoute]string id)
@@ -29,17 +31,42 @@ namespace SOH.API.Controllers
             return await _mediator.Send(common);
         }
 
+        // Guardar nuevo usuario
+        [HttpPost("validation")]
+        public async Task<IActionResult> PostValidate([FromBody] GetVerificationUser common)
+        {
+            var result =  await _mediator.Send(common);
+
+            if (result.token == null) return Unauthorized();
+
+            return Ok(new
+            {
+                token = result.token,
+                userId = result.userId
+            });
+        }
+
         // Actualizar los datos de un usuario
+        //[Authorize]
         [HttpPut]
         public async Task<SR_Users> Put([FromBody] UpdateUserCommon common)
         {
             return await _mediator.Send(common);
         }
 
-        // Activar o desactivar un usuario
-        [HttpPost("active")]
-        public void Delete(int id)
+        // Actualizar la contraseña de un usuario
+        [HttpPut("change/password")]
+        public async Task<bool> PutPass([FromBody] UpdatePasswordCommon common)
         {
+            return await _mediator.Send(common);
+        }
+
+        // Activar o desactivar un usuario
+        //[Authorize]
+        [HttpPost("active")]
+        public async Task<bool> Active([FromBody] IsActiveUserCommon common)
+        {
+            return await _mediator.Send(common);
         }
     }
 }

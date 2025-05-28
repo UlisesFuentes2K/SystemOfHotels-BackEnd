@@ -59,19 +59,56 @@ namespace SOH.PERSISTENCE.Repository
             return null;
         }
 
+        public async Task<bool> UpdatePasswordAsync(SR_Users user)
+        {
+            var usuarioExistente = await _usersManager.FindByIdAsync(user.Id);
+            if (usuarioExistente == null)
+            {
+                throw new Exception("Usuario no encontrado.");
+            }
+
+            var resetToken = await _usersManager.GeneratePasswordResetTokenAsync(usuarioExistente);
+            var result = await _usersManager.ResetPasswordAsync(usuarioExistente, resetToken, user.PasswordHash);
+
+            //Guardar la fecha de cambio
+            usuarioExistente.dateModify = user.dateModify;
+            var result2 = await _usersManager.UpdateAsync(usuarioExistente);
+            if (result.Succeeded && result2.Succeeded) return true;
+
+            return false;
+        }
+
         //Implementación de interfaz para actualiar un usuario
         public async Task<SR_Users> UpdateUserAsync(SR_Users user)
         {
+
             var usuarioExistente = await _usersManager.FindByIdAsync(user.Id);
             if (usuarioExistente == null) return null;
 
             usuarioExistente.Email = user.Email;
             usuarioExistente.UserName = user.Email;
+            usuarioExistente.dateModify = user.dateModify;
 
             var result = await _usersManager.UpdateAsync(usuarioExistente);
             if (result.Succeeded) return usuarioExistente;
 
             return null;
+        }
+
+        //Implementación de interfaz para actualiar un usuario
+        public async Task<bool> IsActivoUserAsync(SR_Users user)
+        {
+
+            var usuarioExistente = await _usersManager.FindByIdAsync(user.Id);
+            if (usuarioExistente == null) return false;
+
+            usuarioExistente.isActive = user.isActive;
+            usuarioExistente.dateModify = user.dateModify;
+
+            var result = await _usersManager.UpdateAsync(usuarioExistente);
+            if (result.Succeeded) return true;
+
+            return false;
         }
 
         public async Task<(string token, string userId)> ValidarUserAsync(string email, string password)

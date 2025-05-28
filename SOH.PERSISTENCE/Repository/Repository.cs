@@ -62,7 +62,7 @@ namespace SOH.PERSISTENCE.Repository
         {
             return await Task.Run(() =>
             {
-                var result =  _DbSet.Remove(t);
+                var result =  _DbSet.Update(t);
                 return result.Entity;
             });
         }

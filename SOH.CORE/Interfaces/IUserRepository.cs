@@ -19,6 +19,12 @@ namespace SOH.CORE.Interfaces
         //Actualizar usuario
         Task<SR_Users> UpdateUserAsync(SR_Users user);
 
+        // Actualizar contraseña
+        Task<bool> UpdatePasswordAsync(SR_Users user);
+
+        // Desactivar cliente
+        Task<bool> IsActivoUserAsync(SR_Users user);
+
         //Actualizar usuario
         Task<(string token, string userId)> ValidarUserAsync(string email, string password);
     }

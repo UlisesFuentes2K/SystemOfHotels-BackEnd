@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using SOH.MAIN.Models.Users;
+using System.Linq.Expressions;
 
 namespace SOH.CORE.Interfaces
 {

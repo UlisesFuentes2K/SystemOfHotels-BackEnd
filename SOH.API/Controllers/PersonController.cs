@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SOH.CORE.Features.Person;
 using SOH.MAIN.Models.Customer;
@@ -16,6 +17,7 @@ namespace SOH.API.Controllers
         }
 
         // Mostrar todas las personas registradas en el sistema
+        //[Authorize]
         [HttpGet]
         public async Task<List<SR_Person>> GetAll([FromQuery] GetAllPersonQuery query)
         {
@@ -23,6 +25,7 @@ namespace SOH.API.Controllers
         }
 
         // Mostrar los datos de una persona registrada en el sistema
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<SR_Person> GetOne([FromRoute] int id)
         {
@@ -37,6 +40,7 @@ namespace SOH.API.Controllers
         }
 
         // Actualizar los datos de una persona
+        //[Authorize]
         [HttpPut]
         public async Task<SR_Person> Put([FromBody] UpdatePersonCommon common)
         {
