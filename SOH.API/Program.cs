@@ -3,6 +3,7 @@ using SOH.PERSISTENCE;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+
 namespace SOH.API
 {
     public class Program
@@ -28,7 +29,9 @@ namespace SOH.API
             builder.Services.AddPersistence();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
+           // builder.Services.AddOpenApi();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             // Configura autenticación de tokens JWT
             var key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]);
@@ -58,10 +61,11 @@ namespace SOH.API
             //Invocar el uso de los cors
             app.UseCors("PermitirTodo");
 
-            // Configure the HTTP request pipeline.
+            // Configuración del pipeline HTTP
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();

@@ -25,6 +25,11 @@ namespace SOH.PERSISTENCE.Repository
         public IRepository<SR_Person> UPerson { get; }
 
         public IRepository<SR_TypePerson> UTypePerson { get; }
+        public IRepository<SR_TypeDocument> UTypeDocument { get; }
+        public IRepository<SR_PeriodBooking> UPeriodBooking { get; }
+        public IRepository<SR_State> UState { get; }
+        public IRepository<SR_Shift> UShift{ get; }
+        public IRepository<SR_Gender> UGender { get; }
 
         public IRepository<SR_City> UCity { get; }
 
@@ -65,6 +70,7 @@ namespace SOH.PERSISTENCE.Repository
             //Employee
             UEmployee = new Repository<SR_Employee>(dbContext);
             UTypeEmployee = new Repository<SR_TypeEmployee>(dbContext);
+            UShift = new Repository<SR_Shift>(dbContext);
 
             //Customer
             UPerson = new Repository<SR_Person>(dbContext);
@@ -72,6 +78,8 @@ namespace SOH.PERSISTENCE.Repository
             UCity = new Repository<SR_City>(dbContext);
             UCountry = new Repository<SR_Country>(dbContext);
             UContacts = new Repository<SR_Contacts>(dbContext);
+            UTypeDocument = new Repository<SR_TypeDocument>(dbContext);
+            UGender = new Repository<SR_Gender>(dbContext);
 
             //Booking
             UBooking = new Repository<SR_Booking>(dbContext);
@@ -82,6 +90,8 @@ namespace SOH.PERSISTENCE.Repository
             UCategoryRoom = new Repository<SR_CategoryRoom>(dbContext);
             UPromotion = new Repository<SR_Promotion>(dbContext);
             UBinnacle = new Repository<SR_Binnacle>(dbContext);
+            UPeriodBooking = new Repository<SR_PeriodBooking>(dbContext);
+            UState = new Repository<SR_State>(dbContext);
 
             //Payments
             UBill = new Repository<SR_Bill>(dbContext);
@@ -91,7 +101,7 @@ namespace SOH.PERSISTENCE.Repository
 
         public async Task SaveChanges()
         {
-            _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

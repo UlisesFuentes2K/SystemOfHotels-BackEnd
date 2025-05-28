@@ -12,8 +12,5 @@ internal class ConfigAspNetUser : IEntityTypeConfiguration<SR_Users>
             .WithOne(y => y.Users)
             .HasForeignKey<SR_Users>(x => x.idPerson)
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.Ignore(x => x.PhoneNumberConfirmed);
-        builder.Ignore(x => x.PhoneNumber);
     }
 }

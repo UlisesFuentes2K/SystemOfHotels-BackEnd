@@ -1,8 +1,9 @@
 ﻿namespace SOH.MAIN.Models.Customer
 {
-    public class SR_Gender
+    public class SR_TypeDocument
     {
-        public int idGender { get; set; }
+        public int idTypeDocument { get; set; }
         public string name { get; set; }
+        
     }
 }

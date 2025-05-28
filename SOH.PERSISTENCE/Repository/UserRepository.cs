@@ -22,13 +22,15 @@ namespace SOH.PERSISTENCE.Repository
         }
 
         //Implementación de interfaz para agregar un nuevo usuario
-        public async Task<SR_Users> AddUserAsync(SR_Users user)
+        public async Task<SR_Users> AddUserAsync(string roleName, SR_Users user)
         {
             user.UserName = user.Email;
             var result =  await _usersManager.CreateAsync(user, user.PasswordHash);
-            if (result.Succeeded) return user;
+            if (!result.Succeeded) return null;
 
-            return null;
+            var asignation = await _usersManager.AddToRoleAsync(user, roleName);
+
+            return asignation.Succeeded ? user : null;
         }
 
         //Implementación de interfaz para llamar a todos los usuarios
@@ -44,6 +46,14 @@ namespace SOH.PERSISTENCE.Repository
         public async Task<SR_Users> GetUserAsync(string id)
         {
             var result = await _usersManager.FindByIdAsync(id);
+            if (result != null) return result;
+
+            return null;
+        }
+
+        public async Task<SR_Users> GetUserByEmailAsync(string email)
+        {
+            var result = await _usersManager.FindByEmailAsync(email);
             if (result != null) return result;
 
             return null;

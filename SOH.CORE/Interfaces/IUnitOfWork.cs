@@ -2,7 +2,6 @@
 using SOH.MAIN.Models.Customer;
 using SOH.MAIN.Models.Employee;
 using SOH.MAIN.Models.Payments;
-using SOH.MAIN.Models.Users;
 
 namespace SOH.CORE.Interfaces
 {
@@ -36,6 +35,13 @@ namespace SOH.CORE.Interfaces
         public IRepository<SR_Bill> UBill { get; }
         public IRepository<SR_TypePay> UTypePay { get; }
         public IRepository<SR_Recharge> URecharge { get; }
+
+        // agregates
+        public IRepository<SR_TypeDocument> UTypeDocument { get; }
+        public IRepository<SR_PeriodBooking> UPeriodBooking { get; }
+        public IRepository<SR_State> UState { get; }
+        public IRepository<SR_Shift> UShift { get; }
+        public IRepository<SR_Gender> UGender { get; }
 
         Task SaveChanges();
     }

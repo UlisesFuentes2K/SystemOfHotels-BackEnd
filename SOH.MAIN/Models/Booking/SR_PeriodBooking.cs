@@ -1,11 +1,8 @@
 ﻿namespace SOH.MAIN.Models.Booking
 {
-    public enum SR_PeriodBooking
+    public class SR_PeriodBooking
     {
-        Dias,
-        Semanas,
-        Mes,
-        Años
-
+        public int idPeriodBooking { get; set; }
+        public string period { get; set; }
     }
 }

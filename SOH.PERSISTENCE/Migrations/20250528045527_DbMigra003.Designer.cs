@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SOH.PERSISTENCE.Data;
 
@@ -11,9 +12,11 @@ using SOH.PERSISTENCE.Data;
 namespace SOH.PERSISTENCE.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250528045527_DbMigra003")]
+    partial class DbMigra003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,10 +213,10 @@ namespace SOH.PERSISTENCE.Migrations
                     b.Property<int>("idState")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("insertDate")
+                    b.Property<DateTime>("insertDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("modificationDate")
+                    b.Property<DateTime>("modificationDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("idBinnacle");
@@ -331,7 +334,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idPeriodBooking");
 
-                    b.ToTable("SRH_PeriodBooking");
+                    b.ToTable("SR_PeriodBooking");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Promotion", b =>
@@ -342,10 +345,10 @@ namespace SOH.PERSISTENCE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPromotion"));
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("concep")
@@ -420,7 +423,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idState");
 
-                    b.ToTable("SRH_State");
+                    b.ToTable("SR_State");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_City", b =>
@@ -498,13 +501,12 @@ namespace SOH.PERSISTENCE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idGender"));
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("name")
+                        .HasColumnType("int");
 
                     b.HasKey("idGender");
 
-                    b.ToTable("SRH_Gender");
+                    b.ToTable("SR_Gender");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_Person", b =>
@@ -515,10 +517,10 @@ namespace SOH.PERSISTENCE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPerson"));
 
-                    b.Property<DateTime?>("dateCreation")
+                    b.Property<DateTime>("dateCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("dateModify")
+                    b.Property<DateTime>("dateModify")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("direction")
@@ -576,7 +578,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idTypeDocument");
 
-                    b.ToTable("SRH_TypeDocument");
+                    b.ToTable("SR_TypeDocument");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_TypePerson", b =>
@@ -604,10 +606,10 @@ namespace SOH.PERSISTENCE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idEmployee"));
 
-                    b.Property<DateTime?>("dateCreation")
+                    b.Property<DateTime>("dateCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("dateModify")
+                    b.Property<DateTime>("dateModify")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("idPerson")
@@ -645,7 +647,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idShift");
 
-                    b.ToTable("SRH_Shift");
+                    b.ToTable("SR_Shift");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Employee.SR_TypeEmployee", b =>
@@ -792,10 +794,10 @@ namespace SOH.PERSISTENCE.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<DateTime?>("dateCreation")
+                    b.Property<DateTime>("dateCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("dateModify")
+                    b.Property<DateTime>("dateModify")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("idPerson")

@@ -1,0 +1,46 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SOH.CORE.Features.Person;
+using SOH.MAIN.Models.Customer;
+
+namespace SOH.API.Controllers
+{
+    [Route("[controller]")]
+    [ApiController]
+    public class PersonController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+        public PersonController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        // Mostrar todas las personas registradas en el sistema
+        [HttpGet]
+        public async Task<List<SR_Person>> GetAll([FromQuery] GetAllPersonQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
+        // Mostrar los datos de una persona registrada en el sistema
+        [HttpGet("{id}")]
+        public async Task<SR_Person> GetOne([FromRoute] int id)
+        {
+            return await _mediator.Send(new GetOnePersonQuery { idPerson = id});
+        }
+
+        // Agregar una nueva persona
+        [HttpPost]
+        public async Task<SR_Person> Post([FromBody] AddPersonCommon common)
+        {
+            return await _mediator.Send(common);
+        }
+
+        // Actualizar los datos de una persona
+        [HttpPut]
+        public async Task<SR_Person> Put([FromBody] UpdatePersonCommon common)
+        {
+            return await _mediator.Send(common);
+        }
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SOH.CORE.Interfaces;
+using System.Linq.Expressions;
 
 namespace SOH.PERSISTENCE.Repository
 {
@@ -13,8 +14,8 @@ namespace SOH.PERSISTENCE.Repository
 
         public async Task<T> AddValue(T t)
         {
-            await _DbSet.AddAsync(t);
-            return t;
+            var result = await _DbSet.AddAsync(t);
+            return result.Entity;
         }
 
         public async Task<bool> DeleteValue(T t)
@@ -31,22 +32,38 @@ namespace SOH.PERSISTENCE.Repository
             return false;
         }
 
-        public async Task<List<T>> GetAllValues()
+        public async Task<List<T>> GetAllValues(params Expression<Func<T, object>>[] includes)
         {
-            return await _DbSet.ToListAsync();
+            IQueryable<T> query = _DbSet;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.ToListAsync();
         }
 
-        public async Task<T> GetOneValue(int t)
+        public async Task<T> GetOneValue(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes)
         {
-            return await _DbSet.FirstOrDefaultAsync();
+            IQueryable<T> query = _DbSet;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            query.Where(filter);
+
+            return await query.FirstOrDefaultAsync();
         }
 
         public async Task<T> UpdateValue(T t)
         {
             return await Task.Run(() =>
             {
-                _DbSet.Remove(t);
-                return t;
+                var result =  _DbSet.Remove(t);
+                return result.Entity;
             });
         }
     }

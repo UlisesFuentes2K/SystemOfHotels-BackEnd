@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SOH.PERSISTENCE.Data;
 
@@ -11,9 +12,11 @@ using SOH.PERSISTENCE.Data;
 namespace SOH.PERSISTENCE.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250527212445_DbMigra002")]
+    partial class DbMigra002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,6 +203,9 @@ namespace SOH.PERSISTENCE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idBinnacle"));
 
+                    b.Property<int?>("BookingidBooking")
+                        .HasColumnType("int");
+
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -207,20 +213,15 @@ namespace SOH.PERSISTENCE.Migrations
                     b.Property<int>("idBooking")
                         .HasColumnType("int");
 
-                    b.Property<int>("idState")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("insertDate")
+                    b.Property<DateTime>("insertDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("modificationDate")
+                    b.Property<DateTime>("modificationDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("idBinnacle");
 
-                    b.HasIndex("idBooking");
-
-                    b.HasIndex("idState");
+                    b.HasIndex("BookingidBooking");
 
                     b.ToTable("SRH_Binnacle");
                 });
@@ -239,9 +240,6 @@ namespace SOH.PERSISTENCE.Migrations
                     b.Property<int>("durationBooking")
                         .HasColumnType("int");
 
-                    b.Property<int>("idPeriodBooking")
-                        .HasColumnType("int");
-
                     b.Property<int>("idPerson")
                         .HasColumnType("int");
 
@@ -251,11 +249,12 @@ namespace SOH.PERSISTENCE.Migrations
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
+                    b.Property<int>("period")
+                        .HasColumnType("int");
+
                     b.HasKey("idBooking");
 
                     b.HasIndex("SR_PersonidPerson");
-
-                    b.HasIndex("idPeriodBooking");
 
                     b.ToTable("SRH_Booking");
                 });
@@ -317,23 +316,6 @@ namespace SOH.PERSISTENCE.Migrations
                     b.ToTable("SRH_CategoryRoom");
                 });
 
-            modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_PeriodBooking", b =>
-                {
-                    b.Property<int>("idPeriodBooking")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPeriodBooking"));
-
-                    b.Property<string>("period")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idPeriodBooking");
-
-                    b.ToTable("SRH_PeriodBooking");
-                });
-
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Promotion", b =>
                 {
                     b.Property<int>("idPromotion")
@@ -342,10 +324,10 @@ namespace SOH.PERSISTENCE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPromotion"));
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("concep")
@@ -404,23 +386,6 @@ namespace SOH.PERSISTENCE.Migrations
                     b.HasIndex("idRoom");
 
                     b.ToTable("SRH_RoomDetail");
-                });
-
-            modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_State", b =>
-                {
-                    b.Property<int>("idState")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idState"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idState");
-
-                    b.ToTable("SRH_State");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_City", b =>
@@ -490,23 +455,6 @@ namespace SOH.PERSISTENCE.Migrations
                     b.ToTable("SRH_Country");
                 });
 
-            modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_Gender", b =>
-                {
-                    b.Property<int>("idGender")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idGender"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idGender");
-
-                    b.ToTable("SRH_Gender");
-                });
-
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_Person", b =>
                 {
                     b.Property<int>("idPerson")
@@ -515,23 +463,23 @@ namespace SOH.PERSISTENCE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPerson"));
 
-                    b.Property<DateTime?>("dateCreation")
+                    b.Property<DateTime>("dateCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("dateModify")
+                    b.Property<DateTime>("dateModify")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("direction")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("document")
+                        .HasColumnType("int");
+
+                    b.Property<int>("gender")
+                        .HasColumnType("int");
+
                     b.Property<int>("idCity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idGender")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idTypeDocument")
                         .HasColumnType("int");
 
                     b.Property<int>("idTypePerson")
@@ -553,30 +501,9 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idCity");
 
-                    b.HasIndex("idGender");
-
-                    b.HasIndex("idTypeDocument");
-
                     b.HasIndex("idTypePerson");
 
                     b.ToTable("SRH_Person");
-                });
-
-            modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_TypeDocument", b =>
-                {
-                    b.Property<int>("idTypeDocument")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idTypeDocument"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idTypeDocument");
-
-                    b.ToTable("SRH_TypeDocument");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_TypePerson", b =>
@@ -604,19 +531,19 @@ namespace SOH.PERSISTENCE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idEmployee"));
 
-                    b.Property<DateTime?>("dateCreation")
+                    b.Property<DateTime>("dateCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("dateModify")
+                    b.Property<DateTime>("dateModify")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("idPerson")
                         .HasColumnType("int");
 
-                    b.Property<int>("idShift")
+                    b.Property<int>("idTypeEmployee")
                         .HasColumnType("int");
 
-                    b.Property<int>("idTypeEmployee")
+                    b.Property<int>("shift")
                         .HasColumnType("int");
 
                     b.HasKey("idEmployee");
@@ -624,28 +551,9 @@ namespace SOH.PERSISTENCE.Migrations
                     b.HasIndex("idPerson")
                         .IsUnique();
 
-                    b.HasIndex("idShift");
-
                     b.HasIndex("idTypeEmployee");
 
                     b.ToTable("SRH_Employee");
-                });
-
-            modelBuilder.Entity("SOH.MAIN.Models.Employee.SR_Shift", b =>
-                {
-                    b.Property<int>("idShift")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idShift"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idShift");
-
-                    b.ToTable("SRH_Shift");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Employee.SR_TypeEmployee", b =>
@@ -792,10 +700,10 @@ namespace SOH.PERSISTENCE.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<DateTime?>("dateCreation")
+                    b.Property<DateTime>("dateCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("dateModify")
+                    b.Property<DateTime>("dateModify")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("idPerson")
@@ -875,19 +783,9 @@ namespace SOH.PERSISTENCE.Migrations
                 {
                     b.HasOne("SOH.MAIN.Models.Booking.SR_Booking", "Booking")
                         .WithMany()
-                        .HasForeignKey("idBooking")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SOH.MAIN.Models.Booking.SR_State", "State")
-                        .WithMany()
-                        .HasForeignKey("idState")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BookingidBooking");
 
                     b.Navigation("Booking");
-
-                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Booking", b =>
@@ -897,14 +795,6 @@ namespace SOH.PERSISTENCE.Migrations
                         .HasForeignKey("SR_PersonidPerson")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SOH.MAIN.Models.Booking.SR_PeriodBooking", "PeriodBooking")
-                        .WithMany()
-                        .HasForeignKey("idPeriodBooking")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PeriodBooking");
 
                     b.Navigation("SR_Person");
                 });
@@ -988,18 +878,6 @@ namespace SOH.PERSISTENCE.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SOH.MAIN.Models.Customer.SR_Gender", "Gender")
-                        .WithMany()
-                        .HasForeignKey("idGender")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SOH.MAIN.Models.Customer.SR_TypeDocument", "TypeDocument")
-                        .WithMany()
-                        .HasForeignKey("idTypeDocument")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SOH.MAIN.Models.Customer.SR_TypePerson", "typePerson")
                         .WithMany()
                         .HasForeignKey("idTypePerson")
@@ -1007,10 +885,6 @@ namespace SOH.PERSISTENCE.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
-
-                    b.Navigation("Gender");
-
-                    b.Navigation("TypeDocument");
 
                     b.Navigation("typePerson");
                 });
@@ -1023,12 +897,6 @@ namespace SOH.PERSISTENCE.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SOH.MAIN.Models.Employee.SR_Shift", "Shift")
-                        .WithMany()
-                        .HasForeignKey("idShift")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SOH.MAIN.Models.Employee.SR_TypeEmployee", "TypeEmployee")
                         .WithMany()
                         .HasForeignKey("idTypeEmployee")
@@ -1036,8 +904,6 @@ namespace SOH.PERSISTENCE.Migrations
                         .IsRequired();
 
                     b.Navigation("Person");
-
-                    b.Navigation("Shift");
 
                     b.Navigation("TypeEmployee");
                 });

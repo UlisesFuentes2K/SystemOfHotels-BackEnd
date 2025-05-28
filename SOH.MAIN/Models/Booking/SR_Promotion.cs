@@ -7,8 +7,8 @@
         public string concep { get; set; }
         public float value { get; set; }
         public bool isActive { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
     }
 }

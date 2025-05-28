@@ -19,10 +19,13 @@ namespace SOH.PERSISTENCE.Data
         public DbSet<SR_City> SRH_Cities { get; set; }
         public DbSet<SR_TypePerson> SRH_TypePerson { get; set; }
         public DbSet<SR_Contacts> SRH_Contacts { get; set; }
+        public DbSet<SR_TypeDocument> SRH_TypeDocument { get; set; }
+        public DbSet<SR_Gender> SRH_Gender { get; set; }
 
         //Employee
         public DbSet<SR_Employee> SRH_Employee { get; set; }
         public DbSet<SR_TypeEmployee> SRH_TypeEmployee { get; set; }
+        public DbSet<SR_Shift> SRH_Shift{ get; set; }
 
         //Booking
         public DbSet<SR_Booking> SRH_Booking { get; set; }
@@ -33,6 +36,8 @@ namespace SOH.PERSISTENCE.Data
         public DbSet<SR_CategoryRoom> SRH_CategoryRoom { get; set; }
         public DbSet<SR_Promotion> SRH_Promotion { get; set; }
         public DbSet<SR_Binnacle> SRH_Binnacle { get; set; }
+        public DbSet<SR_PeriodBooking> SRH_PeriodBooking { get; set; }
+        public DbSet<SR_State> SRH_State { get; set; }
 
         //Payments
         public DbSet<SR_Bill> SRH_Bill { get; set; }

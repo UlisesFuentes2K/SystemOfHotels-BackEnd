@@ -11,13 +11,23 @@ namespace SOH.MAIN.Models.Customer
         public string name { get; set; }
         public string lastName { get; set; }
         public string direction { get; set; }
-        public SR_Gender gender { get; set; }
-        public SR_Document document { get; set; }
         public string numberDocument { get; set; }
+        public DateTime? dateCreation { get; set; }
+        public DateTime? dateModify { get; set; }
 
 
         //Enlace de uno a uno de Persona a Empleado
         public SR_Employee Employee { get; set; }
+
+        //Enlace de uno a muchos de tipo de documento a persona
+        [ForeignKey("idTypeDocument")]
+        public SR_TypeDocument? TypeDocument { get; set; }
+        public int idTypeDocument { get; set; }
+
+        //Enlace de uno a muchos de genero a persona
+        [ForeignKey("idGender")]
+        public SR_Gender? Gender { get; set; }
+        public int idGender { get; set; }
 
         //Enlace de uno a uno de Persona a Usuario
         public SR_Users Users { get; set; }

@@ -1,9 +1,8 @@
 ﻿namespace SOH.MAIN.Models.Employee
 {
-    public enum SR_Shift
+    public class SR_Shift
     {
-        Mañana,
-        Tarde,
-        Noche
+        public int idShift { get; set; }
+        public string name { get; set; }
     }
 }
