@@ -2,12 +2,17 @@
 using SOH.MAIN.Models.Customer;
 using SOH.MAIN.Models.Employee;
 using SOH.MAIN.Models.Payments;
+using SOH.MAIN.Models.Users;
 
 namespace SOH.CORE.Interfaces
 {
     public interface IUnitOfWork
     {
         //Users
+        // La inyección de SRH_Users en la unidad de trabajo es solo para llamar un usuario
+        // No se debe ingresar datos, actualizar o eliminar datos por esta injección
+        public IRepository<SR_Users> UUsers { get; }
+        //
         public IUserRepository IUser { get; }
 
         //Employee

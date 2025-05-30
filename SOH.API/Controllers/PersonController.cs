@@ -17,7 +17,7 @@ namespace SOH.API.Controllers
         }
 
         // Mostrar todas las personas registradas en el sistema
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<List<SR_Person>> GetAll([FromQuery] GetAllPersonQuery query)
         {
@@ -25,22 +25,22 @@ namespace SOH.API.Controllers
         }
 
         // Mostrar los datos de una persona registrada en el sistema
-        //[Authorize]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<SR_Person> GetOne([FromRoute] int id)
         {
             return await _mediator.Send(new GetOnePersonQuery { idPerson = id});
         }
 
-        // Agregar una nueva persona
+        //Agregar una nueva persona
         [HttpPost]
         public async Task<SR_Person> Post([FromBody] AddPersonCommon common)
         {
             return await _mediator.Send(common);
         }
 
-        // Actualizar los datos de una persona
-        //[Authorize]
+        //Actualizar los datos de una persona
+        [Authorize]
         [HttpPut]
         public async Task<SR_Person> Put([FromBody] UpdatePersonCommon common)
         {

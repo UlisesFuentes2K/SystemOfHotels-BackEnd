@@ -16,7 +16,7 @@ namespace SOH.API.Controllers
             _mediator = mediator;
         }
 
-        //[Authorize]
+        [Authorize]
         // Obtener datos de un usuario por ID
         [HttpGet("{id}")]
         public async Task<SR_Users> Get([FromRoute]string id)
@@ -31,7 +31,7 @@ namespace SOH.API.Controllers
             return await _mediator.Send(common);
         }
 
-        // Guardar nuevo usuario
+        // validar usuario
         [HttpPost("validation")]
         public async Task<IActionResult> PostValidate([FromBody] GetVerificationUser common)
         {
@@ -42,7 +42,8 @@ namespace SOH.API.Controllers
             return Ok(new
             {
                 token = result.token,
-                userId = result.userId
+                userId = result.userId,
+                idTypePerson = result.idTypePerson
             });
         }
 

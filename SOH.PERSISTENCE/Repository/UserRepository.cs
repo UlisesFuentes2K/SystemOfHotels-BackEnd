@@ -45,18 +45,12 @@ namespace SOH.PERSISTENCE.Repository
         //Implementación de interfaz para llamar un usuario por ID
         public async Task<SR_Users> GetUserAsync(string id)
         {
-            var result = await _usersManager.FindByIdAsync(id);
-            if (result != null) return result;
-
-            return null;
+            return await _usersManager.FindByIdAsync(id);
         }
 
         public async Task<SR_Users> GetUserByEmailAsync(string email)
         {
-            var result = await _usersManager.FindByEmailAsync(email);
-            if (result != null) return result;
-
-            return null;
+            return await _usersManager.FindByEmailAsync(email);
         }
 
         public async Task<bool> UpdatePasswordAsync(SR_Users user)
