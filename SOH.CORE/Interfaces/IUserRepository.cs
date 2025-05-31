@@ -10,6 +10,9 @@ namespace SOH.CORE.Interfaces
         //Llamar usuario por ID
         Task<SR_Users> GetUserAsync(string id);
 
+        //Llamar el rol del usuario
+        Task<IList<string>> GetUserRolesAsync(SR_Users user);
+
         //Llamar usuario por Email
         Task<SR_Users> GetUserByEmailAsync(string email);
 

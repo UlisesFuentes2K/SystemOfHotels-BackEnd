@@ -42,8 +42,10 @@ namespace SOH.API.Controllers
             return Ok(new
             {
                 token = result.token,
-                userId = result.userId,
-                idTypePerson = result.idTypePerson
+                userId = result.Id,
+                idTypePerson = result.idTypePerson,
+                rol = result.Rol,
+                idPerson = result.idPerson
             });
         }
 

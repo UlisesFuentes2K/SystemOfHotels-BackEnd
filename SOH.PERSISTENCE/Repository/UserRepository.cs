@@ -48,6 +48,13 @@ namespace SOH.PERSISTENCE.Repository
             return await _usersManager.FindByIdAsync(id);
         }
 
+        // Obtener rol de usuario
+        public async Task<IList<string>> GetUserRolesAsync(SR_Users user)
+        {
+            return await _usersManager.GetRolesAsync(user);
+        }
+
+
         public async Task<SR_Users> GetUserByEmailAsync(string email)
         {
             return await _usersManager.FindByEmailAsync(email);

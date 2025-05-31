@@ -53,7 +53,8 @@ namespace SOH.PERSISTENCE.Repository
                 query = query.Include(include);
             }
 
-            query.Where(filter);
+            query = query.Where(filter);
+
 
             return await query.FirstOrDefaultAsync();
         }
