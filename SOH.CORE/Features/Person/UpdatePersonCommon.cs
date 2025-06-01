@@ -16,6 +16,7 @@ namespace SOH.CORE.Features.Person
         public string numberDocument { get; set; }
         public int idCity { get; set; }
         public int idTypePerson { get; set; }
+        public SR_Contacts? Contacts { get; set; }
     }
 
     internal class UpdatePersonCommonHandler : IRequestHandler<UpdatePersonCommon, SR_Person>

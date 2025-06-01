@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SOH.MAIN.Models.Customer
 {
@@ -11,7 +12,9 @@ namespace SOH.MAIN.Models.Customer
 
         // Claves Foaraneas como propiedades.
         [ForeignKey("idPerson")]
+        public int idPerson { get; set; }
+
+        [JsonIgnore]
         public SR_Person? Person { get; set; }
-        public int idPerson { get; set; } 
     }
 }

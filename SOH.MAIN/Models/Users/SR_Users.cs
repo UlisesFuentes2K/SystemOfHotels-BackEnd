@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SOH.MAIN.Models.Customer;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SOH.MAIN.Models.Users
 {
@@ -12,7 +13,9 @@ namespace SOH.MAIN.Models.Users
 
         // Relación 1:1 con Persona
         [ForeignKey("idPerson")]
-        public SR_Person? Person { get; set; }
         public int idPerson { get; set; }
+
+        [JsonIgnore]
+        public SR_Person? Person { get; set; }
     }
 }

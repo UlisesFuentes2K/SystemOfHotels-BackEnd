@@ -11,8 +11,11 @@ namespace SOH.API.Controllers
     public class TypeDocumentController : ControllerBase
     {
         private readonly IMediator _mediator;
+        public TypeDocumentController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
-        [Authorize]
         [HttpGet]
         public async Task<List<SR_TypeDocument>> Get([FromQuery] GetTypeDocumentQuery query)
         {

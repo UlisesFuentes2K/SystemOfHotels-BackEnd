@@ -16,7 +16,6 @@ namespace SOH.API.Controllers
             _mediator = mediator;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<List<SR_City>> Get([FromQuery] GetAllCityQuery query)
         {

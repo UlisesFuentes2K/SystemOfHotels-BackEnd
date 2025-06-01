@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using SOH.MAIN.Models.Employee;
+﻿using SOH.MAIN.Models.Employee;
 using SOH.MAIN.Models.Users;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,5 +38,8 @@ namespace SOH.MAIN.Models.Customer
         [ForeignKey("idCity")]
         public SR_City? City { get; set; }
         public int idCity { get; set; }
+
+        // Relación de una persona a un contactos de telefono (Home, Office, cellphone)
+        public ICollection<SR_Contacts> Contacts { get; set; }
     }
 }

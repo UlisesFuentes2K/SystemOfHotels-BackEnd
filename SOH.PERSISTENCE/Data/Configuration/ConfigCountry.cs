@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SOH.MAIN.Models.Customer;
+using System.Reflection.Emit;
 
 namespace SOH.PERSISTENCE.Data.Configuration
 {

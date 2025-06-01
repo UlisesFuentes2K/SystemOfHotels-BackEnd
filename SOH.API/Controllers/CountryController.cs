@@ -12,12 +12,11 @@ namespace SOH.API.Controllers
     public class CountryController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public CountryController( IMediator mediator)
+        public CountryController(IMediator mediator)
         {
             _mediator = mediator;
         }
-
-        [Authorize]
+    
         [HttpGet]
         public async Task<List<SR_Country>> Get([FromQuery] GetAllCountryQuery query)
         {

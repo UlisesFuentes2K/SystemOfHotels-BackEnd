@@ -17,7 +17,7 @@ namespace SOH.CORE.Features.Person
         public async Task<List<SR_Person>> Handle(GetAllPersonQuery request, CancellationToken cancellationToken)
         {
             // Traer los datos de la persona.
-            return await _unitOfWork.UPerson.GetAllValues(x => x.City, x=> x.City.Country);
+            return await _unitOfWork.UPerson.GetAllValues(x => x.City, x=> x.City.Country, x => x.Users);
         }
     }
 }

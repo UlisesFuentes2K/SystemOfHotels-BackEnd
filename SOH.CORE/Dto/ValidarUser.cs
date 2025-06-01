@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SOH.CORE.Dto
+﻿namespace SOH.CORE.Dto
 {
     public class ValidarUser
     {
@@ -12,6 +6,7 @@ namespace SOH.CORE.Dto
         public string token { get; set; }
         public int idTypePerson { get; set; }
         public int idPerson { get; set; }
+        //
         public IList<string> Rol{ get; set; }
     }
 }

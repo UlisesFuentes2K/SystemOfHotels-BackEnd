@@ -27,8 +27,6 @@ namespace SOH.CORE.Features.User
         }
         public async Task<SR_Users> Handle(AddUserCommon request, CancellationToken cancellationToken)
         {
-            string roleName = "User";
-
             // Mapear los datos
             var map = _mapper.Map<SR_Users>(request);
 
@@ -37,15 +35,9 @@ namespace SOH.CORE.Features.User
             map.LockoutEnd = DateTimeOffset.UtcNow.AddMinutes(21);
             map.LockoutEnabled = true;
             map.AccessFailedCount = 5;
-            if (!string.IsNullOrEmpty(map.PhoneNumber))
-                map.PhoneNumberConfirmed = true;
 
-            //Asignar un rol, guardar y retornar datos
-            if(request.idTipoPersona != 1)
-            {
-                roleName = "Employee";
-                await _unitOfWork.IUser.AddUserAsync(roleName, map);
-            }
+            // Asignar rol y guardar usuario
+            string roleName = request.idTipoPersona != 1 ? "Employee" : "User";
             await _unitOfWork.IUser.AddUserAsync(roleName, map);
             return map;
         }

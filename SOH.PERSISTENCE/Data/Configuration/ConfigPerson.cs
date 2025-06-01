@@ -29,5 +29,10 @@ internal class ConfigPerson : IEntityTypeConfiguration<SR_Person>
         .WithMany()
         .HasForeignKey(p => p.idTypeDocument)
         .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(p => p.Contacts)
+        .WithOne(x => x.Person)
+        .HasForeignKey(p => p.idPerson)
+        .OnDelete(DeleteBehavior.Cascade);
     }
 }
