@@ -2,8 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using SOH.CORE.Dto;
 using SOH.CORE.Interfaces;
+using SOH.MAIN.Models.Customer;
 using SOH.MAIN.Models.Users;
+using SOH.PERSISTENCE.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,17 +18,20 @@ namespace SOH.PERSISTENCE.Repository
         // Injección de dependencias
         private readonly UserManager<SR_Users> _usersManager;
         private readonly IConfiguration _configuration;
-        public UserRepository(UserManager<SR_Users> userManager, IConfiguration configuration)
+        private readonly AplicationDbContext _dbContext;
+        public UserRepository(UserManager<SR_Users> userManager, IConfiguration configuration,
+         AplicationDbContext context)
         {
             _usersManager = userManager;
             _configuration = configuration;
+            _dbContext = context;
         }
 
         //Implementación de interfaz para agregar un nuevo usuario
         public async Task<SR_Users> AddUserAsync(string roleName, SR_Users user)
         {
             user.UserName = user.Email;
-            var result =  await _usersManager.CreateAsync(user, user.PasswordHash);
+            var result = await _usersManager.CreateAsync(user, user.PasswordHash);
             if (!result.Succeeded) return null;
 
             var asignation = await _usersManager.AddToRoleAsync(user, roleName);
@@ -112,31 +118,67 @@ namespace SOH.PERSISTENCE.Repository
             return false;
         }
 
-        public async Task<(string token, string userId)> ValidarUserAsync(string email, string password)
+        public async Task<ValidarUser> ValidarUserAsync(string email, string password)
         {
+            // Instanciar el Dto.
+            ValidarUser validar = new();
+
+            // Validar si el correo existe.
             var user = await _usersManager.FindByEmailAsync(email);
-            if(user != null && await _usersManager.CheckPasswordAsync(user, password))
+            if (user == null)
             {
-                var authClaims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-
-                var token = new JwtSecurityToken(
-                    issuer: _configuration["JWT:ValidIssuer"],
-                    audience: _configuration["JWT:ValidAudience"],
-                    expires: DateTime.Now.AddHours(3),
-                    claims: authClaims,
-                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
-
-                return (new JwtSecurityTokenHandler().WriteToken(token), user.Id);
+                validar.respuesta = "El email no fue encontrado";
+                return validar;
             }
 
-            return (null, null);
+            // Validar si la contraseña es correcta
+            if (!await _usersManager.CheckPasswordAsync(user, password))
+            {
+                validar.respuesta = "La contraseña es incorrecta";
+                return validar;
+            }
+
+            // Validar si el usuario esta activo
+            if (!user.isActive)
+            {
+                validar.respuesta = "Usuario inactivo";
+                return validar;
+            }
+
+            // Obtener el tipo de persona que esta iniciando sesión
+            var person = await _dbContext.SRH_Person.FirstOrDefaultAsync(x => x.idPerson == user.idPerson);
+
+            // Obtener el rol del usuario.
+            var rol = await _usersManager.GetRolesAsync(user);
+
+            // Autentication: 
+            var authClaims = new List<Claim>
+                    {
+                        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    };
+
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["JWT:ValidIssuer"],
+                audience: _configuration["JWT:ValidAudience"],
+                expires: DateTime.Now.AddHours(3),
+                claims: authClaims,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+            );
+
+            // Llenar datos de retorno
+            validar.Id = user.Id;
+            validar.idPerson = user.idPerson;
+            validar.Rol = rol;
+            validar.respuesta = "OK";
+            validar.idTypePerson = person.idTypePerson;
+            validar.token = (new JwtSecurityTokenHandler().WriteToken(token));
+
+
+            // Llenar datos
+            return validar;
         }
     }
 }

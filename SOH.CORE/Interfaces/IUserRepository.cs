@@ -1,4 +1,5 @@
-﻿using SOH.MAIN.Models.Users;
+﻿using SOH.CORE.Dto;
+using SOH.MAIN.Models.Users;
 
 namespace SOH.CORE.Interfaces
 {
@@ -29,6 +30,6 @@ namespace SOH.CORE.Interfaces
         Task<bool> IsActivoUserAsync(SR_Users user);
 
         //Actualizar usuario
-        Task<(string token, string userId)> ValidarUserAsync(string email, string password);
+        Task<ValidarUser> ValidarUserAsync(string email, string password);
     }
 }

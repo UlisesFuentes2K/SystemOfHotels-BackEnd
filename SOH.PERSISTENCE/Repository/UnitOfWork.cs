@@ -15,11 +15,6 @@ namespace SOH.PERSISTENCE.Repository
         // Definir Variable de lectura
         private readonly AplicationDbContext _dbContext;
 
-        // La inyección de SRH_Users en la unidad de trabajo es solo para llamar un usuario
-        // No se debe ingresar datos, actualizar o eliminar datos por esta injección
-        public IRepository<SR_Users> UUsers { get; }
-        //
-
         // Definir Implementación de la interfaz
         public IUserRepository IUser { get; }
 
@@ -66,13 +61,13 @@ namespace SOH.PERSISTENCE.Repository
         public IRepository<SR_Recharge> URecharge { get; }
 
         // Inyección de dependencias
-        public UnitOfWork(AplicationDbContext dbContext, UserManager<SR_Users> userManager, IConfiguration configuration)
+        public UnitOfWork(AplicationDbContext dbContext, UserManager<SR_Users> userManager, 
+            IConfiguration configuration)
         {
             _dbContext = dbContext;
 
             //User 
-            IUser = new UserRepository(userManager, configuration);
-            UUsers = new Repository<SR_Users>(dbContext);
+            IUser = new UserRepository(userManager, configuration, dbContext);
 
             //Employee
             UEmployee = new Repository<SR_Employee>(dbContext);

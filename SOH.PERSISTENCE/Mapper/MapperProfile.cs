@@ -36,11 +36,11 @@ namespace SOH.PERSISTENCE.Mapper
 
             CreateMap<UpdateUserCommon, SR_Users>()
                 .ForMember(x => x.dateModify, y => y.MapFrom(z => DateTime.Now.ToLocalTime()))
-                .ForMember(x => x.SecurityStamp, y => y.MapFrom(z => Guid.NewGuid().ToString()))
                 .ReverseMap();
 
             CreateMap<UpdatePasswordCommon, SR_Users>()
                 .ForMember(x => x.dateModify, y => y.MapFrom(z => DateTime.Now.ToLocalTime()))
+                .ForMember(x => x.SecurityStamp, y => y.MapFrom(z => Guid.NewGuid().ToString()))
                 .ReverseMap();
 
             CreateMap<IsActiveUserCommon, SR_Users>()

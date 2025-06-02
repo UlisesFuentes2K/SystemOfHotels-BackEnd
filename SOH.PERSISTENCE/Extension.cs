@@ -30,6 +30,10 @@ namespace SOH.PERSISTENCE
             .AddEntityFrameworkStores<AplicationDbContext>()
             .AddDefaultTokenProviders();
 
+            services.Configure<SecurityStampValidatorOptions>(options => {
+                options.ValidationInterval = TimeSpan.FromMinutes(1);
+            });
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddAutoMapper(config =>
