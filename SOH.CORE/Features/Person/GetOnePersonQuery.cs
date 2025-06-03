@@ -18,7 +18,7 @@ namespace SOH.CORE.Features.Person
         }
         public async Task<SR_Person> Handle(GetOnePersonQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.UPerson.GetOneValue(x=> x.idPerson == request.idPerson, x=> x.City, x=>x.City.Country, x => x.TypeDocument);
+            return await _unitOfWork.UPerson.GetOneValue(x=> x.idPerson == request.idPerson, x=> x.City, x=>x.City.Country, x => x.TypeDocument, x => x.Users);
         }
     }
 }

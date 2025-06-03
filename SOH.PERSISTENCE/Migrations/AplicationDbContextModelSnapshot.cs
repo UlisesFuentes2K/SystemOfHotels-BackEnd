@@ -189,7 +189,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idAuditLog");
 
-                    b.ToTable("SRH_AuditLog");
+                    b.ToTable("SRH_AuditLog", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Binnacle", b =>
@@ -222,7 +222,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idState");
 
-                    b.ToTable("SRH_Binnacle");
+                    b.ToTable("SRH_Binnacle", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Booking", b =>
@@ -257,7 +257,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idPeriodBooking");
 
-                    b.ToTable("SRH_Booking");
+                    b.ToTable("SRH_Booking", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Calendar", b =>
@@ -276,7 +276,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idCalendar");
 
-                    b.ToTable("SRH_Calendar");
+                    b.ToTable("SRH_Calendar", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_CalendarDetail", b =>
@@ -291,7 +291,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idCalendar");
 
-                    b.ToTable("SRH_CalendarDetail");
+                    b.ToTable("SRH_CalendarDetail", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_CategoryRoom", b =>
@@ -314,7 +314,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idCategoryRoom");
 
-                    b.ToTable("SRH_CategoryRoom");
+                    b.ToTable("SRH_CategoryRoom", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_PeriodBooking", b =>
@@ -331,7 +331,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idPeriodBooking");
 
-                    b.ToTable("SRH_PeriodBooking");
+                    b.ToTable("SRH_PeriodBooking", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Promotion", b =>
@@ -364,7 +364,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idPromotion");
 
-                    b.ToTable("SRH_Promotion");
+                    b.ToTable("SRH_Promotion", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_Room", b =>
@@ -388,7 +388,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idCategoryRoom");
 
-                    b.ToTable("SRH_Room");
+                    b.ToTable("SRH_Room", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_RoomDetail", b =>
@@ -403,7 +403,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idRoom");
 
-                    b.ToTable("SRH_RoomDetail");
+                    b.ToTable("SRH_RoomDetail", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Booking.SR_State", b =>
@@ -420,7 +420,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idState");
 
-                    b.ToTable("SRH_State");
+                    b.ToTable("SRH_State", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_City", b =>
@@ -442,7 +442,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idCountry");
 
-                    b.ToTable("SRH_Cities");
+                    b.ToTable("SRH_Cities", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_Contacts", b =>
@@ -470,7 +470,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idPerson");
 
-                    b.ToTable("SRH_Contacts");
+                    b.ToTable("SRH_Contacts", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_Country", b =>
@@ -487,7 +487,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idCountry");
 
-                    b.ToTable("SRH_Country");
+                    b.ToTable("SRH_Country", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_Gender", b =>
@@ -504,7 +504,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idGender");
 
-                    b.ToTable("SRH_Gender");
+                    b.ToTable("SRH_Gender", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_Person", b =>
@@ -559,7 +559,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idTypePerson");
 
-                    b.ToTable("SRH_Person");
+                    b.ToTable("SRH_Person", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_TypeDocument", b =>
@@ -576,7 +576,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idTypeDocument");
 
-                    b.ToTable("SRH_TypeDocument");
+                    b.ToTable("SRH_TypeDocument", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Customer.SR_TypePerson", b =>
@@ -593,7 +593,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idTypePerson");
 
-                    b.ToTable("SRH_TypePerson");
+                    b.ToTable("SRH_TypePerson", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Employee.SR_Employee", b =>
@@ -628,7 +628,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idTypeEmployee");
 
-                    b.ToTable("SRH_Employee");
+                    b.ToTable("SRH_Employee", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Employee.SR_Shift", b =>
@@ -645,7 +645,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idShift");
 
-                    b.ToTable("SRH_Shift");
+                    b.ToTable("SRH_Shift", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Employee.SR_TypeEmployee", b =>
@@ -665,7 +665,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idTypeEmployee");
 
-                    b.ToTable("SRH_TypeEmployee");
+                    b.ToTable("SRH_TypeEmployee", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Payments.SR_Bill", b =>
@@ -700,7 +700,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasIndex("idTypePay");
 
-                    b.ToTable("SRH_Bill");
+                    b.ToTable("SRH_Bill", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Payments.SR_Recharge", b =>
@@ -720,7 +720,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idRecarge");
 
-                    b.ToTable("SRH_Recharge");
+                    b.ToTable("SRH_Recharge", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Payments.SR_TypePay", b =>
@@ -737,7 +737,7 @@ namespace SOH.PERSISTENCE.Migrations
 
                     b.HasKey("idTypePay");
 
-                    b.ToTable("SRH_TypePay");
+                    b.ToTable("SRH_TypePay", (string)null);
                 });
 
             modelBuilder.Entity("SOH.MAIN.Models.Users.SR_Users", b =>

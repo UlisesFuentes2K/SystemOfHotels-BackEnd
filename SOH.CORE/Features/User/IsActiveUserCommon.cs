@@ -22,8 +22,7 @@ namespace SOH.CORE.Features.User
         }
         public async Task<bool> Handle(IsActiveUserCommon request, CancellationToken cancellationToken)
         {
-            var map = _mapper.Map<SR_Users>(request);
-            return await _unitOfWork.IUser.IsActivoUserAsync(map);
+            return await _unitOfWork.IUser.IsActivoUserAsync(request.Id, request.isActive);
         }
     }
 }

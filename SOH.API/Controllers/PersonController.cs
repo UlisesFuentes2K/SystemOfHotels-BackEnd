@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OneOf;
 using SOH.CORE.Features.Person;
 using SOH.MAIN.Models.Customer;
 
@@ -34,17 +35,27 @@ namespace SOH.API.Controllers
 
         //Agregar una nueva persona
         [HttpPost]
-        public async Task<SR_Person> Post([FromBody] AddPersonCommon common)
+        public async Task<IActionResult> Post([FromBody] AddPersonCommon common)
         {
-            return await _mediator.Send(common);
+            var resultado = await _mediator.Send(common);
+
+            return resultado.Match<IActionResult>(
+                persona => CreatedAtAction(nameof(Post), new { id = persona.idPerson }, persona),  
+                error => BadRequest(error)  
+            );
         }
 
         //Actualizar los datos de una persona
         [Authorize]
         [HttpPut]
-        public async Task<SR_Person> Put([FromBody] UpdatePersonCommon common)
+        public async Task<IActionResult> Put([FromBody] UpdatePersonCommon common)
         {
-            return await _mediator.Send(common);
+            var resultado = await _mediator.Send(common);
+
+            return resultado.Match<IActionResult>(
+                persona => CreatedAtAction(nameof(Post), new { id = persona.idPerson }, persona),
+                error => BadRequest(error)
+            );
         }
     }
 }

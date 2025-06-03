@@ -1,4 +1,5 @@
-﻿using SOH.CORE.Dto;
+﻿using OneOf;
+using SOH.CORE.Dto;
 using SOH.MAIN.Models.Users;
 
 namespace SOH.CORE.Interfaces
@@ -18,7 +19,7 @@ namespace SOH.CORE.Interfaces
         Task<SR_Users> GetUserByEmailAsync(string email);
 
         // Guardar nuevo usuario
-        Task<SR_Users> AddUserAsync(string roleName, SR_Users user);
+        Task<OneOf<SR_Users, string>> AddUserAsync(string roleName, SR_Users user);
 
         //Actualizar usuario
         Task<SR_Users> UpdateUserAsync(SR_Users user);
@@ -27,7 +28,7 @@ namespace SOH.CORE.Interfaces
         Task<bool> UpdatePasswordAsync(SR_Users user);
 
         // Desactivar cliente
-        Task<bool> IsActivoUserAsync(SR_Users user);
+        Task<bool> IsActivoUserAsync(string id, bool value);
 
         //Actualizar usuario
         Task<ValidarUser> ValidarUserAsync(string email, string password);

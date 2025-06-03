@@ -29,6 +29,7 @@ namespace SOH.MAIN.Models.Customer
         public int idGender { get; set; }
 
         //Enlace de uno a uno de Persona a Usuario
+        [ForeignKey("idPerson")]
         public SR_Users Users { get; set; }
 
         [ForeignKey("idTypePerson")]

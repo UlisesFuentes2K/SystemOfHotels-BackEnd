@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using OneOf;
+using OneOf.Types;
 using SOH.CORE.Dto;
 using SOH.CORE.Interfaces;
 using SOH.MAIN.Models.Customer;
@@ -28,11 +30,11 @@ namespace SOH.PERSISTENCE.Repository
         }
 
         //Implementación de interfaz para agregar un nuevo usuario
-        public async Task<SR_Users> AddUserAsync(string roleName, SR_Users user)
+        public async Task<OneOf<SR_Users, string>> AddUserAsync(string roleName, SR_Users user)
         {
             user.UserName = user.Email;
             var result = await _usersManager.CreateAsync(user, user.PasswordHash);
-            if (!result.Succeeded) return null;
+            if (!result.Succeeded) return "null";
 
             var asignation = await _usersManager.AddToRoleAsync(user, roleName);
 
@@ -51,7 +53,9 @@ namespace SOH.PERSISTENCE.Repository
         //Implementación de interfaz para llamar un usuario por ID
         public async Task<SR_Users> GetUserAsync(string id)
         {
-            return await _usersManager.FindByIdAsync(id);
+
+            var result = await _usersManager.FindByIdAsync(id);
+            return result;
         }
 
         // Obtener rol de usuario
@@ -63,7 +67,14 @@ namespace SOH.PERSISTENCE.Repository
 
         public async Task<SR_Users> GetUserByEmailAsync(string email)
         {
-            return await _usersManager.FindByEmailAsync(email);
+            var result = await _usersManager.FindByEmailAsync(email);
+
+            if (result != null)
+            {
+                _dbContext.Entry(result).State = EntityState.Detached;
+            } 
+
+            return result;
         }
 
         public async Task<bool> UpdatePasswordAsync(SR_Users user)
@@ -88,29 +99,35 @@ namespace SOH.PERSISTENCE.Repository
         //Implementación de interfaz para actualiar un usuario
         public async Task<SR_Users> UpdateUserAsync(SR_Users user)
         {
+            // Validar si el usuario existe
+            var existente = await _usersManager.FindByIdAsync(user.Id);
+            if (existente == null) return null;
 
-            var usuarioExistente = await _usersManager.FindByIdAsync(user.Id);
-            if (usuarioExistente == null) return null;
+            existente.Email = user.Email;
+            existente.UserName = user.Email;
+            existente.dateModify = user.dateModify;
+            existente.PhoneNumber = user.PhoneNumber;
 
-            usuarioExistente.Email = user.Email;
-            usuarioExistente.UserName = user.Email;
-            usuarioExistente.dateModify = user.dateModify;
-
-            var result = await _usersManager.UpdateAsync(usuarioExistente);
-            if (result.Succeeded) return usuarioExistente;
-
-            return null;
+            try
+            {
+                var result = await _usersManager.UpdateAsync(existente);
+                return result.Succeeded ? existente : null;
+            }
+            catch (DbUpdateConcurrencyException)
+{
+                return null;
+            }
         }
 
         //Implementación de interfaz para actualiar un usuario
-        public async Task<bool> IsActivoUserAsync(SR_Users user)
+        public async Task<bool> IsActivoUserAsync(string id,  bool value)
         {
 
-            var usuarioExistente = await _usersManager.FindByIdAsync(user.Id);
+            var usuarioExistente = await _usersManager.FindByIdAsync(id);
             if (usuarioExistente == null) return false;
 
-            usuarioExistente.isActive = user.isActive;
-            usuarioExistente.dateModify = user.dateModify;
+            usuarioExistente.isActive = value;
+            usuarioExistente.dateModify = DateTime.Now.ToLocalTime();
 
             var result = await _usersManager.UpdateAsync(usuarioExistente);
             if (result.Succeeded) return true;

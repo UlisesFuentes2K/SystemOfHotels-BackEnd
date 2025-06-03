@@ -17,6 +17,7 @@ namespace SOH.PERSISTENCE.Repository
 
         // Definir Implementación de la interfaz
         public IUserRepository IUser { get; }
+        public IRepository<SR_Users> IUserV { get; }
 
 
         public IRepository<SR_Employee> UEmployee { get; }
@@ -68,6 +69,7 @@ namespace SOH.PERSISTENCE.Repository
 
             //User 
             IUser = new UserRepository(userManager, configuration, dbContext);
+            IUserV = new Repository<SR_Users>(dbContext);
 
             //Employee
             UEmployee = new Repository<SR_Employee>(dbContext);

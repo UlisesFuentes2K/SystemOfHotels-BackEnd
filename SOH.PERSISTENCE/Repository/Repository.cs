@@ -53,16 +53,22 @@ namespace SOH.PERSISTENCE.Repository
                 query = query.Include(include);
             }
 
-            query = query.Where(filter);
+            query = query.Where(filter).AsNoTracking();
 
-
-            return await query.FirstOrDefaultAsync();
+            var result = await query.FirstOrDefaultAsync();
+            return result;
         }
 
         public async Task<T> UpdateValue(T t)
         {
             return await Task.Run(() =>
             {
+                var entry = _DbSet.Entry(t);
+                if (entry.State == EntityState.Detached)
+                {
+                    _DbSet.Attach(t); 
+                }
+
                 var result =  _DbSet.Update(t);
                 return result.Entity;
             });

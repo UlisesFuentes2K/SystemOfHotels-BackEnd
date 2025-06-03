@@ -10,6 +10,7 @@ namespace SOH.CORE.Interfaces
     {
         //Users
         public IUserRepository IUser { get; }
+        public IRepository<SR_Users> IUserV { get; }
 
         //Employee
         public IRepository<SR_Employee> UEmployee { get;}

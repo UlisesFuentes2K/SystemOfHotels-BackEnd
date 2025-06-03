@@ -16,18 +16,25 @@ namespace SOH.PERSISTENCE.Mapper
             .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
             .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.PasswordHash))
             .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.phoneNumber))
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+            .ForMember(dest => dest.isActive, opt => opt.MapFrom(src => true))
+            .ForMember(dest => dest.LockoutEnd, opt => opt.MapFrom(src => DateTimeOffset.UtcNow.AddMinutes(21)))
+            .ForMember(dest => dest.LockoutEnabled, opt => opt.MapFrom(src => true))
+            .ForMember(dest => dest.AccessFailedCount, opt => opt.MapFrom(src => 5))
+            .ForMember(dest => dest.dateCreation, opt => opt.MapFrom(src => DateTime.Now.ToLocalTime()))
+            .ForMember(dest => dest.Id, opt => opt.Condition(src => !string.IsNullOrWhiteSpace(src.Id)))
             .ReverseMap();
 
         // Mapeo de AddPersonCommon a SR_Person
         CreateMap<AddPersonCommon, SR_Person>()
             .ForMember(dest => dest.dateCreation, opt => opt.MapFrom(src => DateTime.Now.ToLocalTime()))
-            .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.Users))
+            .ForMember(dest => dest.Users, opt => opt.Ignore())
             .ReverseMap();
 
         CreateMap<UpdatePersonCommon, SR_Person>()
             .ForMember(dest => dest.dateModify, opt => opt.MapFrom(src => DateTime.Now.ToLocalTime()))
-                .ReverseMap();
+            .ForMember(dest => dest.Users, opt => opt.Ignore())
+            .ReverseMap();
 
         // Configuración para mapear un usuario
         CreateMap<AddUserCommon, SR_Users>()
